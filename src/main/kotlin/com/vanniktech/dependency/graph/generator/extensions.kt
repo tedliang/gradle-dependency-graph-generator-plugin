@@ -44,6 +44,7 @@ internal fun Project.getProjectDependencies(
   fun addProject(project: Project) {
     if (projectGenerator.includeProject(project) && projects.add(project)) {
       project.configurations
+        .filter { !it.name.startsWith("test") }
         .flatMap { configuration ->
           configuration.dependencies
             .withType(ProjectDependency::class.java)
