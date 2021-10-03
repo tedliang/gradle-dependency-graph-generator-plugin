@@ -15,6 +15,7 @@ open class ProjectDependenciesTask : DefaultTask() {
   fun run() {
     project.getProjectDependencies(projectGenerator).first.minus(project)
       .map { projectGenerator.projectLabel(it) }.sorted()
+      .map { it.drop(1).replace(":", "/") }
       .forEach(::println)
   }
 }
